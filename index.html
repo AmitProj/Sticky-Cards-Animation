@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Teko');
+
+* {
+  position:relative;
+  box-sizing:border-box;
+}
+
+.cards {
+  width: 100%;
+  height: 80vh;
+  position:relative;
+}
+
+.stuckCardImg {
+  padding:2em;
+  color: white;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #1565C0;
+  text-transform:uppercase;
+  font-size:10vw;
+  /* margin-bottom: 50px; */
+  border-radius: 50px 50px ;
+}
+
+
+body {
+  margin: 0;
+  font-family: 'Teko', sans-serif;
+  background:#BBDEFB;
+}
+
+
+.stuckCardImg, .header, .spacer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction:column;
+  font-size: 50px;
+  text-shadow:2px 2px 4px rgb(0,0,0,0.3);
+}
+.container{
+    max-width: 1250px;
+    margin:  0 auto;
+}
+
+
+
+
+
+
+
+.stuckCardImg:nth-child(odd) {
+  background: #303F9F;
+}
+
+.spacer {
+  font-size:50px;
+  margin:20px;
+
+}
+.wrapper{
+    padding: 50px 0;
+}
+    </style>
+</head>
+
+<body>
+    <div class="spacer" style="height:100vh;">Scroll Down</div>
+    <div class="logos">
+        <h1>logo</h1>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ea tempora fugiat magnam impedit eos necessitatibus, ducimus quidem repudiandae ab aspernatur?</p>
+    </div>
+    <div class="wrapper wrapper-section">
+        <div class="cards container">
+            <div class="stuckCardImg">stacking</div>
+            <div class="stuckCardImg">cards</div>
+            <div class="stuckCardImg">for</div>
+            <div class="stuckCardImg">you</div>
+            <div class="stuckCardImg">to</div>
+            <div class="stuckCardImg">explore</div>
+            <div class="stuckCardImg">and</div>
+            <div class="stuckCardImg">use</div>
+        </div>
+    </div>
+    <div class="spacer" style="height:400px; text-align:center;">SEE VIDEO DESCRIPTION FOR DEMO LINK</div>
+    <div class="spacer" style="height:200px; text-align:center;">SEE VIDEO DESCRIPTION FOR DEMO LINK</div>
+
+    <div class="spacer" style="height:900px; text-align:center;">SEE VIDEO DESCRIPTION FOR DEMO LINK</div>
+
+    <div class="spacer" style="height:700px; text-align:center;">SEE VIDEO DESCRIPTION FOR DEMO LINK</div>
+
+    <div class="spacer" style="height:100vh; text-align:center;">SEE VIDEO DESCRIPTION FOR DEMO LINK</div>
+
+
+  
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+
+const stockCard  = document.querySelectorAll('.stuckCardImg');
+// const header  = document.querySelector('.header');
+const animation = gsap.timeline()
+let cardHeight
+
+
+
+function initstockCard(){
+  animation.clear()
+  cardHeight = stockCard[0].offsetHeight
+  console.log("initstockCard()", cardHeight)
+  stockCard.forEach((card, index) => {
+    if(index > 0){
+    //increment y value of each card by cardHeight
+      gsap.set(card, {y:index * cardHeight})
+    //animate each card back to 0 (for stacking)
+      animation.to(card, {y:0, duration:index*0.5, ease:"none"},0)
+     
+    }
+  })
+}
+
+initstockCard()
+
+ScrollTrigger.create({
+  trigger:".wrapper",
+  start:"top top",
+  pin:true,
+  end:()=>`+=${(stockCard.length * cardHeight)}`,
+  scrub:true,
+  animation:animation,
+  markers:true,
+  invalidateOnRefresh:true,
+  scale:0.5,
+  
+})
+
+ScrollTrigger.addEventListener("refreshInit", initstockCard)
+
+
+// Become a GSAP and ScrollTrigger Pro
+// visit https://www.creativecodingclub.com/ 
+// Unlock over 200 lessons and get new lessons weekly
+
+//automate scroll
+/* gsap.delayedCall(1, ()=>{
+  gsap.to(window, {scrollTo:{y:"max", autoKill:true}, duration:15, repeat:1, yoyo:true, repeatDelay:1, ease:"none"})
+  
+})
+ */
+    </script>
+</body>
+
+</html>
